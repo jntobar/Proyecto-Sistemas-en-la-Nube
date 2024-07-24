@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { TextField, Button, Box } from '@mui/material';
 import axios from 'axios';
 
 const FormComponent = ({ onAnalyze }) => {
@@ -9,8 +10,8 @@ const FormComponent = ({ onAnalyze }) => {
     event.preventDefault();
     setLoading(true);
     try {
-      const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000';
-      const response = await axios.post(`${backendUrl}/analyze`, { url });
+      
+      const response = await axios.post('/analyze', { url });
       onAnalyze(response.data);
     } catch (error) {
       console.error('Error analyzing URL:', error);
@@ -20,18 +21,19 @@ const FormComponent = ({ onAnalyze }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
+    <Box component="form" onSubmit={handleSubmit} sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+      <TextField
+        label="Enter URL to analyze"
+        variant="outlined"
         value={url}
         onChange={(e) => setUrl(e.target.value)}
-        placeholder="Enter URL to analyze"
         required
+        fullWidth
       />
-      <button type="submit" disabled={loading}>
+      <Button type="submit" variant="contained" color="primary" disabled={loading}>
         {loading ? 'Analyzing...' : 'Analyze'}
-      </button>
-    </form>
+      </Button>
+    </Box>
   );
 };
 

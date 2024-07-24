@@ -1,18 +1,20 @@
-// src/components/HistoryComponent.js
 import React from 'react';
+import { List, ListItem, ListItemText, Typography, Box } from '@mui/material';
 
 const HistoryComponent = ({ history }) => {
-  if (!history || history.length === 0) return <p>No history available.</p>;
-
   return (
-    <div>
-      <h2>History</h2>
-      <ul>
-        {history.map((item, index) => (
-          <li key={index}>{item}</li>
+    <Box sx={{ mt: 4 }}>
+      <Typography variant="h6" component="h3">
+        Historial
+      </Typography>
+      <List>
+        {history.map((url, index) => (
+          <ListItem key={index}>
+            <ListItemText primary={url} />
+          </ListItem>
         ))}
-      </ul>
-    </div>
+      </List>
+    </Box>
   );
 };
 
