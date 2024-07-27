@@ -1,24 +1,20 @@
-version: '3.8'
+version: '3'
 
 services:
-  frontend:
-    build:
-      context: ./frontend
-    ports:
-      - "3000:80"
-    environment:
-      - REACT_APP_BACKEND_URL=http://backend:5000
-    networks:
-      - mynetwork
-
   backend:
-    build:
-      context: ./backend
+    build: ./backend
     ports:
-      - "5000:5000"
-    networks:
-      - mynetwork
+      - "5000:5000"  # Mapea el puerto 5000 del contenedor al puerto 5000 de tu máquina local
+    environment:
+      FLASK_ENV: development
+    volumes:
+      - ./backend:/app  # Permite el desarrollo en caliente
 
-networks:
-  mynetwork:
-    driver: bridge
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"  # Mapea el puerto 3000 del contenedor al puerto 3000 de tu máquina local
+    environment:
+      CHOKIDAR_USEPOLLING: "true"  # Necesario para el desarrollo en algunos entornos
+    volumes:
+      - ./frontend:/app  # Permite el desarrollo en caliente

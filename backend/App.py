@@ -1,8 +1,10 @@
 import base64
 import requests
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)  # Habilitar CORS para permitir solicitudes desde el frontend
 
 # Reemplaza 'YOUR_API_KEY' con tu clave de API de VirusTotal
 API_KEY = '3e6e40b997e16c7a9e07a4df815485a07b63a30c7fcf5de515d51cd79d15506a'
@@ -62,5 +64,5 @@ def analyze_url():
         print(f"Request Exception: {e}")
         return jsonify({'error': 'An error occurred while making the request'}), 500
 
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000, debug=True)

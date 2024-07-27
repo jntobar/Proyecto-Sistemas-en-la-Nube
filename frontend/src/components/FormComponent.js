@@ -11,7 +11,7 @@ const FormComponent = ({ onAnalyze }) => {
     setLoading(true);
     try {
       
-      const response = await axios.post('/analyze', { url });
+      const response = await axios.post('http://localhost:5000/analyze', { url });
       onAnalyze(response.data);
     } catch (error) {
       console.error('Error analyzing URL:', error);
